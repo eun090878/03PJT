@@ -34,12 +34,8 @@ public class ListProductAction extends Action {
 		int pageSize=Integer.parseInt(getServletContext().getInitParameter("pageSize"));
 		int pageUnit  =  Integer.parseInt(getServletContext().getInitParameter("pageUnit"));
 		searchVO.setPageSize(pageSize);
-/*		System.out.println("currentPage :: " + currentPage);
-		System.out.println("searchCondition :: " + request.getParameter("searchCondition"));
-		System.out.println("searchKeyword :: " + request.getParameter("searchKeyword"));		
-		System.out.println("pageSize :: " + pageSize);
-		System.out.println("pageUnit :: " + pageUnit);
-		*/
+		
+
 		// Business logic ผ๖วเ
 		ProductService service=new ProductServiceImpl();
 		Map<String,Object> map=service.getProductList(searchVO);

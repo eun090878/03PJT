@@ -77,7 +77,7 @@ public class ProductDao {
 	public Map<String,Object> getProductList(Search searchVO) throws Exception{
 		
 		System.out.println("ProductDao :: getProductList() 시작 ");
-		System.out.println(searchVO);
+	
 		Map<String , Object>  map = new HashMap<String, Object>();
 		
 		Connection con = DBUtil.getConnection();
@@ -106,8 +106,7 @@ public class ProductDao {
 		ResultSet rs = stmt.executeQuery();
 		
 		System.out.println(searchVO);
-		
-
+	
 		List<Product> list = new ArrayList<Product>();
 		
 		while(rs.next()){
@@ -119,8 +118,6 @@ public class ProductDao {
 			vo.setPrice(rs.getInt("price"));
 			vo.setFileName(rs.getString("image_file"));
 			vo.setRegDate(rs.getDate("reg_date"));
-//			System.out.println("ProductDao :: getProductList() :: " + vo.getRegDate());
-//		System.out.println("ProductDao : " + rs.getString("manufacture_day"));
 			list.add(vo);
 
 		}
@@ -133,49 +130,9 @@ public class ProductDao {
 		rs.close();
 		stmt.close();
 		con.close();
-		
-/*
-		rs.last();						
-		//ResultSet의 맨 끝의 행으로 이동
-		
-		int total = rs.getRow();	
-		//현재 커서가 가리키고 있는 row번호
-		//현재row가 맨마지막 row이므로 전체건수가 된다
-		System.out.println("로우의 수:" + total);
 
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("count", new Integer(total));
-
-		rs.absolute(searchVO.getCurrentPage() * searchVO.getPageSize() - searchVO.getPageSize()+1);
-		System.out.println("searchVO.getCurrentPage():" + searchVO.getCurrentPage());
-		System.out.println("searchVO.getPageSize():" + searchVO.getPageSize());
-
-		ArrayList<Product> list = new ArrayList<Product>();
-		if (total > 0) {
-			for (int i = 0; i < searchVO.getPageSize(); i++) {
-				Product vo = new Product();
-				vo.setProdNo(rs.getInt("prod_no"));
-				vo.setProdName(rs.getString("prod_name"));
-				vo.setProdDetail(rs.getString("prod_detail"));
-				vo.setManuDate(rs.getString("manufacture_day"));
-				vo.setPrice(rs.getInt("price"));
-				vo.setFileName(rs.getString("image_file"));
-				vo.setRegDate(rs.getDate("reg_date"));
-				System.out.println("ProductDao :: getProductList() :: " + vo.getRegDate());
-//			System.out.println("ProductDao : " + rs.getString("manufacture_day"));
-				list.add(vo);
-				if (!rs.next())
-					break;
-			}
-		}
-		System.out.println("list.size() : "+ list.size());
-		map.put("list", list);
-		System.out.println("map().size() : "+ map.size());
-
-		con.close();
-		
 		System.out.println("ProductDao :: getProductList() 끝 ");
-		*/
+
 		return map;
 		
 	}
@@ -183,8 +140,6 @@ public class ProductDao {
 	public void updateProduct(Product productVO) throws Exception{
 		
 		System.out.println("ProductDao :: updateProduct() 시작 ");
-		
-		
 		
 		Connection con = DBUtil.getConnection();
 
