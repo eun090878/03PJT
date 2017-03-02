@@ -44,6 +44,14 @@ public class PurchaseDao {
 	
 	//구매정보 상세조회
 	public Purchase findPurchase(int transNo) throws Exception {
+		
+		System.out.println("PurchaseDao :: findPurchase() 시작 ");
+		
+		Connection con = DBUtil.getConnection();
+
+		String sql = "";
+		
+		
 		Purchase purchaseVO	 = new Purchase();
 		
 		return purchaseVO;
