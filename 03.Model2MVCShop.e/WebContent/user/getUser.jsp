@@ -7,6 +7,8 @@
 <%
 	User user = (User)request.getAttribute("user");
 %>	/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+
+<% System.out.println("new/dev ============================ new/dev "); %>
 <html>
 <head>
 <title>회원정보조회</title>
