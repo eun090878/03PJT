@@ -2,11 +2,15 @@ package com.model2.mvc.service.purchase.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 
 public class PurchaseDao {
@@ -59,8 +63,42 @@ public class PurchaseDao {
 	
 	//구매목록
 	public Map<String, Object> getPurchaseList(Search searchVO, String buyerId)throws Exception {
+		
+		System.out.println("PurchaseDao :: getPurchaseList() 시작 ");
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		Connection con = DBUtil.getConnection();
+		
+		String sql = "SELECT * FROM transaction order by tran_no desc";
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();		
+	
+		List<Purchase> list = new ArrayList<Purchase>();
+		
+		while(rs.next()){
+			Purchase vo = new Purchase();
+		/*	vo.setProdNo(rs.getInt("prod_no"));
+			vo.setProdName(rs.getString("prod_name"));
+			vo.setProdDetail(rs.getString("prod_detail"));
+			vo.setManuDate(rs.getString("manufacture_day"));
+			vo.setPrice(rs.getInt("price"));
+			vo.setFileName(rs.getString("image_file"));
+			vo.setRegDate(rs.getDate("reg_date"));*/
+			list.add(vo);
+
+		}
+		
+		//==> currentPage 의 게시물 정보 갖는 List 저장
+		map.put("list", list);
+
+		rs.close();
+		stmt.close();
+		con.close();
+		
+		
+		System.out.println("PurchaseDao :: getPurchaseList() 끝 ");
 		return map;
 	}
 	
