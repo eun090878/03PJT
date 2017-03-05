@@ -10,8 +10,10 @@ import java.util.Map;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
-import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.user.UserService;
+import com.model2.mvc.service.user.impl.UserServiceImpl;
 
 public class PurchaseDao {
 	//Constructor	
@@ -70,8 +72,17 @@ public class PurchaseDao {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT * FROM transaction order by tran_no desc";
-
+		String sql = "SELECT t.tran_no, t.buyer_id, t.receiver_name, t.receiver_phone, t.tran_status_code"
+				+ "	from users u, transaction t"
+				+ " where t.buyer_id='"+buyerId+ "'"
+				+ " and u.user_id = t.buyer_id ";
+		
+		int totalCount = this.getTotalCount(sql);
+		System.out.println("PurchaseDao :: totalCount  :: " + totalCount);
+		
+		UserService service = new UserServiceImpl();
+		User user = service.getUser(buyerId);
+		
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();		
 	
@@ -79,16 +90,18 @@ public class PurchaseDao {
 		
 		while(rs.next()){
 			Purchase vo = new Purchase();
-		/*	vo.setProdNo(rs.getInt("prod_no"));
-			vo.setProdName(rs.getString("prod_name"));
-			vo.setProdDetail(rs.getString("prod_detail"));
-			vo.setManuDate(rs.getString("manufacture_day"));
-			vo.setPrice(rs.getInt("price"));
-			vo.setFileName(rs.getString("image_file"));
-			vo.setRegDate(rs.getDate("reg_date"));*/
+			vo.setTranNo(rs.getInt("tran_no"));
+			vo.setBuyer(user);
+			vo.setReceiverName(rs.getString("receiver_name"));
+			vo.setReceiverPhone(rs.getString("receiver_phone"));
+			vo.setTranCode(rs.getString("tran_status_code"));
+			//정보수정 추가
+
 			list.add(vo);
 
 		}
+		//==> totalCount 정보 저장
+		map.put("totalCount", new Integer(totalCount));
 		
 		//==> currentPage 의 게시물 정보 갖는 List 저장
 		map.put("list", list);
@@ -117,6 +130,27 @@ Map<String, Object> map = new HashMap<String, Object>();
 	//구매상태코드 수정
 	public void updateTranCode(Purchase purchaseVO) throws Exception {
 		
+	}
+	
+	private int getTotalCount(String sql) throws Exception {
+		
+		sql = "SELECT COUNT(*) "+
+		          "FROM ( " +sql+ ") countTable";
+		
+		Connection con = DBUtil.getConnection();
+		PreparedStatement pStmt = con.prepareStatement(sql);
+		ResultSet rs = pStmt.executeQuery();
+		
+		int totalCount = 0;
+		if( rs.next() ){
+			totalCount = rs.getInt(1);
+		}
+		
+		pStmt.close();
+		con.close();
+		rs.close();
+		
+		return totalCount;
 	}
 	
 
