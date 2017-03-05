@@ -44,6 +44,10 @@ public class ListProductAction extends Action {
 				new Page( currentPage, ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println("ListUserAction ::"+resultPage);
 		
+		System.out.println("currenP" + currentPage);
+		System.out.println("totalC" + ((Integer)map.get("totalCount")).intValue());
+		System.out.println();
+		
 		// Model 과 View 연결
 		request.setAttribute("list", map.get("list"));
 		request.setAttribute("resultPage", resultPage);
@@ -52,6 +56,5 @@ public class ListProductAction extends Action {
 		System.out.println(" ::. ListProductAction 끝 :: \n");
 
 		return "forward:/product/listProduct.jsp";
-/*		return "forward:/product/readProduct.jsp";*/
 	}
 }
