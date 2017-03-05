@@ -22,7 +22,7 @@ function fncGetAllList(currentPage){
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listUser.do" method="post">
+<form name="detailForm" action="/listUser.do?menu=${param.menu}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -68,16 +68,15 @@ function fncGetAllList(currentPage){
 						</td>
 						
 						<td></td>
-						<td align="left"><a href="/getUser.do?userId=${purchase.buyer.userId }">user03</a>
+						<td align="left"><a href="/getUser.do?userId=${purchase.buyer.userId }">${purchase.buyer.userId}</a>
 						</td>
 						<td></td>
 						<td align="left">${purchase.buyer.userName}</td>
 						<td></td>
 						<td align="left">${purchase.receiverPhone}</td>
 						<td></td>
-						<td align="left">${purchase.tranCode }</td>
+						<td align="left">${purchase.tranCode}</td>
 						
-						sjdflksjdflkjsldfkjsl구매 완료해랏
 						<td></td>
 						</td>
 					</tr>
@@ -90,11 +89,12 @@ function fncGetAllList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td align="center">
-		 
+				   <input type="hidden" id="currentPage" name="currentPage" value=" ${resultPage.currentPage}"/>
+<!-- 		 
 			<a href="/listPurchase.do?page=1">1</a> 
 		 
 			<a href="/listPurchase.do?page=2">2</a> 
-			
+			 -->
 			
 			<jsp:include page="../common/pageNavigator.jsp"/>	
 		</td>
