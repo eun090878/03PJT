@@ -25,11 +25,11 @@ public class ListPurchaseAction extends Action{
 		System.out.println("ListPurchaseAction : "+buyerId);
 		
 		Search searchVO=new Search();
-				
+	
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null)
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		
+		System.out.println("listPurchaseAction : search :: " + request.getParameter("currentPage"));
 		searchVO.setCurrentPage(currentPage);
 		
 		int pageSize=Integer.parseInt(getServletContext().getInitParameter("pageSize"));
@@ -39,12 +39,14 @@ public class ListPurchaseAction extends Action{
 		PurchaseService service=new PurchaseServiceImpl();
 		Map<String, Object> map = service.getPurchaseList(searchVO, buyerId);
 		
+		System.out.println("listPurchaseAction :: searchVO22222222 : " + searchVO);
+		
 		Page resultPage	= 
 				new Page( currentPage, ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		
+		System.out.println("listPurchaseAction resultPage :: " + resultPage);
 		request.setAttribute("list", map.get("list"));
 		request.setAttribute("resultPage", resultPage);
-		request.setAttribute("searchVO", searchVO);
+		request.setAttribute("search", searchVO);
 		
 		System.out.println(" ::. ListPurchaseAction ³¡ :: ");
 		
