@@ -155,7 +155,6 @@ public class ProductDao {
 		stmt.setString(5, productVO.getFileName());
 		
 		stmt.executeUpdate();
-		System.out.println("Äõ¸® ³¯·È´Ù!!!!!! ");
 		
 		con.close();
 		
@@ -193,7 +192,7 @@ public class ProductDao {
 										"	WHERE ROWNUM <="+search.getCurrentPage()*search.getPageSize()+" ) " +
 						"WHERE row_seq BETWEEN "+((search.getCurrentPage()-1)*search.getPageSize()+1) +" AND "+search.getCurrentPage()*search.getPageSize();
 			
-			System.out.println("UserDAO :: make SQL :: "+ sql);	
+			System.out.println("ProductDAO :: make SQL :: "+ sql);	
 			
 			return sql;
 		}
