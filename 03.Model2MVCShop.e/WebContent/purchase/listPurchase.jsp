@@ -22,7 +22,7 @@ function fncGetAllList(currentPage){
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listUser.do?menu=${param.menu}" method="post">
+<form name="detailForm" action="/listUser.do" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -59,7 +59,6 @@ function fncGetAllList(currentPage){
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
 
-
 				<c:set var="i" value="0" />
 				<c:forEach var="purchase" items="${list}">
 					<c:set var="i" value="${ i+1 }" />
@@ -94,8 +93,7 @@ function fncGetAllList(currentPage){
 			<a href="/listPurchase.do?page=1">1</a> 
 		 
 			<a href="/listPurchase.do?page=2">2</a> 
-			 -->
-			
+			 -->			
 			<jsp:include page="../common/pageNavigator.jsp"/>	
 		</td>
 	</tr>
