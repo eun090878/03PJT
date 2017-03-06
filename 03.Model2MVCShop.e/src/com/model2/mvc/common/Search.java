@@ -4,10 +4,10 @@ package com.model2.mvc.common;
 public class Search {
 	
 	///Field
-	private int curruntPage;		//page
+	private int curruntPage;			//page
 	private String searchCondition;
 	private String searchKeyword;
-	private int pageSize;	//pageUnit
+	private int pageSize;					//pageUnit
 	
 	///Constructor
 	public Search() {
