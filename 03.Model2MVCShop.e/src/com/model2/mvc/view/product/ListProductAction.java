@@ -42,10 +42,10 @@ public class ListProductAction extends Action {
 		
 		Page resultPage	= 
 				new Page( currentPage, ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-		System.out.println("ListUserAction ::"+resultPage);
+		System.out.println("ListProductAction ::"+resultPage);
 		
-		System.out.println("currenP" + currentPage);
-		System.out.println("totalC" + ((Integer)map.get("totalCount")).intValue());
+		System.out.println("currenP " + currentPage);
+		System.out.println("totalC " + ((Integer)map.get("totalCount")).intValue());
 		System.out.println();
 		
 		// Model °ú View ¿¬°á
