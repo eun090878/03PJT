@@ -68,9 +68,6 @@
 	<tr>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
-<%-- 			<option value="0" <%= (searchCondition.equals("0") ? "selected" : "")%>>상품번호</option>
-				<option value="1" <%= (searchCondition.equals("1") ? "selected" : "")%>>상품명</option>
-				<option value="2" <%= (searchCondition.equals("2") ? "selected" : "")%>>상품가격</option> --%>
 				
 				<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 				<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
@@ -87,7 +84,7 @@
 						<img src="/images/ct_btnbg01.gif" width="17" height="23">
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<a href="javascript:fncGetAllList('1');">검색</a>
+						<a href="javascript:fncGetAllList('${resultPage.currentPage}');">검색</a>
 						<!-- 	현재페이지 1부터 시작. -->
 					</td>
 					<td width="14" height="23">
