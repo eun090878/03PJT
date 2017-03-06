@@ -72,21 +72,22 @@ public class PurchaseDao {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT t.tran_no, t.buyer_id, t.receiver_name, t.receiver_phone, t.tran_status_code"
+		String sql = "SELECT t.tran_no, t.buyer_id, t.receiver_name, t.receiver_phone, NVL(t.tran_status_code, 0) tran_status_code"
 				+ "	from users u, transaction t"
 				+ " where t.buyer_id='"+buyerId+ "'"
-				+ " and u.user_id = t.buyer_id ";
+				+ " and u.user_id = t.buyer_id(+)";
 		
 		int totalCount = this.getTotalCount(sql);
 		System.out.println("PurchaseDao :: totalCount  :: " + totalCount);
-		
-		UserService service = new UserServiceImpl();
-		User user = service.getUser(buyerId);
+		sql = makeCurrentPageSql(sql, searchVO);
 		
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();		
 	
 		List<Purchase> list = new ArrayList<Purchase>();
+		
+		UserService service = new UserServiceImpl();
+		User user = service.getUser(buyerId);
 		
 		while(rs.next()){
 			Purchase vo = new Purchase();
@@ -109,7 +110,6 @@ public class PurchaseDao {
 		rs.close();
 		stmt.close();
 		con.close();
-		
 		
 		System.out.println("PurchaseDao :: getPurchaseList() ³¡ ");
 		return map;
@@ -151,6 +151,18 @@ Map<String, Object> map = new HashMap<String, Object>();
 		rs.close();
 		
 		return totalCount;
+	}
+	
+	private String makeCurrentPageSql(String sql , Search search){
+		sql = 	"SELECT * "+ 
+					"FROM (		SELECT inner_table. * ,  ROWNUM AS row_seq " +
+									" 	FROM (	"+sql+" ) inner_table "+
+									"	WHERE ROWNUM <="+search.getCurrentPage()*search.getPageSize()+" ) " +
+					"WHERE row_seq BETWEEN "+((search.getCurrentPage()-1)*search.getPageSize()+1) +" AND "+search.getCurrentPage()*search.getPageSize();
+		
+		System.out.println("PurchaseDAO :: make SQL :: "+ sql);	
+		
+		return sql;
 	}
 	
 
