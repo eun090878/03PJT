@@ -8,10 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.DBUtil;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
 import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.product.ProductService;
+import com.model2.mvc.service.product.impl.ProductServiceImpl;
 import com.model2.mvc.service.user.UserService;
 import com.model2.mvc.service.user.impl.UserServiceImpl;
 
@@ -49,18 +54,52 @@ public class PurchaseDao {
 	}
 	
 	//구매정보 상세조회
-	public Purchase findPurchase(int transNo) throws Exception {
+	public Purchase findPurchase(int tranNo) throws Exception {
 		
 		System.out.println("PurchaseDao :: findPurchase() 시작 ");
 		
 		Connection con = DBUtil.getConnection();
 
-		String sql = "";
+		String sql = "SELECT "
+				+ "tran_no, prod_no, buyer_id, payment_option, "
+				+ "receiver_name, receiver_phone, dlvy_addr, dlvy_request, "
+				+ "dlvy_date, order_date "
+				+ "FROM transaction "
+				+ "WHERE tran_no='"+tranNo+"'";
 		
+		PreparedStatement stmt = con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+						
+		Purchase purchase	 = null;
+		while (rs.next()) {
+			
+			purchase = new Purchase();
+			
+			Product product = new ProductServiceImpl().getProduct(rs.getInt("prod_no"));			
+			User user = new UserServiceImpl().getUser(rs.getString("buyer_id"));
+			
+			System.out.println("getPurchase() :: product.prod_no : " + product);
+			System.out.println("getPurchase() :: user.user_id : " + user);
+			
+			purchase.setPurchaseProd(product);
+			purchase.setBuyer(user);
+			purchase.setTranNo(rs.getInt("tran_no"));
+			purchase.setPaymentOption(rs.getString("payment_option"));
+			purchase.setReceiverName(rs.getString("receiver_name"));
+			purchase.setReceiverPhone(rs.getString("receiver_phone"));
+			purchase.setDlvyAddr(rs.getString("dlvy_addr"));
+			purchase.setDlvyRequest(rs.getString("dlvy_request"));
+			purchase.setDlvyDate(rs.getString("dlvy_date"));
+			purchase.setOrderDate(rs.getDate("order_date"));
 		
-		Purchase purchaseVO	 = new Purchase();
+		}
+		rs.close();
+		stmt.close();
+		con.close();
+
+		System.out.println("PurchaseDao :: getPurchase() 끝 ");
 		
-		return purchaseVO;
+		return purchase;
 	}
 	
 	//구매목록
