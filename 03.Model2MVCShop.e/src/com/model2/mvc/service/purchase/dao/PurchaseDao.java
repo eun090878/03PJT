@@ -81,9 +81,9 @@ public class PurchaseDao {
 			System.out.println("getPurchase() :: product.prod_no : " + product);
 			System.out.println("getPurchase() :: user.user_id : " + user);
 			
-			purchase.setPurchaseProd(product);
-			purchase.setBuyer(user);
 			purchase.setTranNo(rs.getInt("tran_no"));
+			purchase.setPurchaseProd(product);
+			purchase.setBuyer(user);	
 			purchase.setPaymentOption(rs.getString("payment_option"));
 			purchase.setReceiverName(rs.getString("receiver_name"));
 			purchase.setReceiverPhone(rs.getString("receiver_phone"));
@@ -93,6 +93,8 @@ public class PurchaseDao {
 			purchase.setOrderDate(rs.getDate("order_date"));
 		
 		}
+		System.out.println("findPurchase () : purchase 정보:: " + purchase);
+		
 		rs.close();
 		stmt.close();
 		con.close();
@@ -163,7 +165,37 @@ Map<String, Object> map = new HashMap<String, Object>();
 	
 	//구매정보 수정
 	public void updatePurchase(Purchase purchaseVO) throws Exception {
+		System.out.println("PurchaseDao :: updatePurchase() 시작 ");
 		
+		Connection con = DBUtil.getConnection();
+		
+		int tranNo = purchaseVO.getTranNo();
+		System.out.println("traNo 가져와라" + tranNo);
+		
+		String sql = "UPDATE transaction "
+				+ "SET "
+				+ "payment_option=?, receiver_name=?, "
+				+ "receiver_phone=?, dlvy_addr=?, "
+				+ "dlvy_request=?, dlvy_date=? "
+				+ "WHERE tran_no='"+tranNo+"'";
+		
+		PreparedStatement stmt = con.prepareStatement(sql);
+		
+		stmt.setString(1, purchaseVO.getPaymentOption());
+		stmt.setString(2, purchaseVO.getReceiverName());
+		stmt.setString(3, purchaseVO.getReceiverPhone());
+		stmt.setString(4, purchaseVO.getDlvyAddr());
+		stmt.setString(5, purchaseVO.getDlvyRequest());
+		stmt.setString(6, purchaseVO.getDlvyDate());
+		
+		stmt.executeUpdate();
+		
+		System.out.println("updatePurchase() :: purchase정보 : " + purchaseVO);
+
+		stmt.close();
+		con.close();
+		
+		System.out.println("PurchaseDao :: updatePurchase() 시작 ");
 	}
 	
 	//구매상태코드 수정
