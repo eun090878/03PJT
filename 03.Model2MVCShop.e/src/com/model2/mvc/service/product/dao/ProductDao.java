@@ -39,6 +39,7 @@ public class ProductDao {
 		stmt.setInt(4, productVO.getPrice());
 		stmt.setString(5, productVO.getFileName());
 		
+		
 		stmt.executeUpdate();
 		con.close();
 		System.out.println("ProductDao :: insertProduct() ³¡ ");
@@ -82,17 +83,23 @@ public class ProductDao {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT * FROM product";
+		String sql = "SELECT "
+				+ "p.prod_no, p.prod_name, p.prod_detail, p.manufacture_day, p.price, "
+				+ "p.image_file, p.reg_date, NVL(t.tran_status_code, 0) tran_code "
+				+ "FROM product p, transaction t "
+				+ "WHERE p.prod_no = t.prod_no(+)";
 		if (searchVO.getSearchCondition() != null) {
 			if (searchVO.getSearchCondition().equals("0") && !searchVO.getSearchKeyword().equals("") ) {
-				sql += " WHERE prod_no like '%" + searchVO.getSearchKeyword() + "%'";
+				sql += " AND prod_no like '%" + searchVO.getSearchKeyword() + "%'";
 			} else if (searchVO.getSearchCondition().equals("1") && !searchVO.getSearchKeyword().equals("") ) {
-				sql += " WHERE prod_name like '%" + searchVO.getSearchKeyword() + "%'";
+				sql += " AND prod_name like '%" + searchVO.getSearchKeyword() + "%'";
 			} else if (searchVO.getSearchCondition().equals("2") && !searchVO.getSearchKeyword().equals("") ) {
-				sql += " WHERE price like '%" + searchVO.getSearchKeyword() + "%'";
+				sql += " AND price like '%" + searchVO.getSearchKeyword() + "%'";
 			}
 		}
-		sql += " order by prod_no";
+		sql += " GROUP BY p.prod_name, p.prod_no, p.prod_detail, "
+				+ "p.manufacture_day, p.price, p.image_file, p.reg_date, "
+				+ "t.tran_status_code ORDER BY prod_no";
 
 		System.out.println("ProductDAO :: Original SQL :: " + sql);
 		
