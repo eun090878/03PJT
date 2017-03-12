@@ -22,6 +22,8 @@ public class ListProductAction extends Action {
 		System.out.println("searchkeyword" + request.getParameter("searchKeyword"));
 		Search searchVO=new Search();
 		
+	
+		
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null)
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
