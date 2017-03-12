@@ -42,6 +42,7 @@ public class AddPurchaseAction extends Action {
 		String dlvyAddr = request.getParameter("receiverAddr");
 		String dlvyRequest = request.getParameter("receiverRequest");
 		String dlvyDate = request.getParameter("receiverDate");
+
 		
 		purchase.setPurchaseProd(product);
 		purchase.setBuyer(user);
@@ -51,6 +52,7 @@ public class AddPurchaseAction extends Action {
 		purchase.setDlvyAddr(dlvyAddr);
 		purchase.setDlvyRequest(dlvyRequest);
 		purchase.setDlvyDate(dlvyDate);
+//		purchase.setTranCode(tranCode);
 				
 		PurchaseService service = new PurchaseServiceImpl();
 		service.addPurchase(purchase);
