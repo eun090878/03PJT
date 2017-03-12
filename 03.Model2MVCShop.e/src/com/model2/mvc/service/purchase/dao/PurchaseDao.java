@@ -60,12 +60,13 @@ public class PurchaseDao {
 		
 		Connection con = DBUtil.getConnection();
 
-		String sql = "SELECT "
+/*		String sql = "SELECT "
 				+ "tran_no, prod_no, buyer_id, payment_option, "
 				+ "receiver_name, receiver_phone, dlvy_addr, dlvy_request, "
 				+ "dlvy_date, order_date "
 				+ "FROM transaction "
-				+ "WHERE tran_no='"+tranNo+"'";
+				+ "WHERE tran_no='"+tranNo+"'";*/
+		String sql="SELECT * FROM transaction WHERE tran_no='"+tranNo+"'";
 		
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -78,8 +79,8 @@ public class PurchaseDao {
 			Product product = new ProductServiceImpl().getProduct(rs.getInt("prod_no"));			
 			User user = new UserServiceImpl().getUser(rs.getString("buyer_id"));
 			
-			System.out.println("getPurchase() :: product.prod_no : " + product);
-			System.out.println("getPurchase() :: user.user_id : " + user);
+			System.out.println("getPurchase() :: product.prod_no : " + product.getProdNo());
+			System.out.println("getPurchase() :: user.user_id : " + user.getUserId());
 			
 			purchase.setTranNo(rs.getInt("tran_no"));
 			purchase.setPurchaseProd(product);
