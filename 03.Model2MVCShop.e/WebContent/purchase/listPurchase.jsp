@@ -70,12 +70,17 @@ function fncGetAllList(currentPage){
 						<td align="left"><a href="/getUser.do?userId=${purchase.buyer.userId }">${purchase.buyer.userId}</a>
 						</td>
 						<td></td>
-						<td align="left">${purchase.buyer.userName}</td>
+						<td align="left">${purchase.receiverName}</td>
 						<td></td>
 						<td align="left">${purchase.receiverPhone}</td>
 						<td></td>
-						<td align="left">${purchase.tranCode}</td>
-						
+						<td align="left">
+							<c:choose>
+								<c:when test="${purchase.tranCode=='1'}">현재 구매완료 상태입니다.</c:when>
+								<c:when test="${purchase.tranCode=='2'}">현재 배송중 상태입니다.</c:when>
+								<c:when test="${purchase.tranCode=='3'}">현재 배송완료 상태입니다.</c:when>
+							</c:choose>
+						</td>
 						<td></td>
 						</td>
 					</tr>
@@ -88,7 +93,7 @@ function fncGetAllList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td align="center">
-				   <input type="hidden" id="currentPage" name="currentPage" value=" ${resultPage.currentPage}"/>
+				   <input type="hidden" id="currentPage" name="currentPage" value="${resultPage.currentPage}"/>
 <!-- 		 
 			<a href="/listPurchase.do?page=1">1</a> 
 		 
