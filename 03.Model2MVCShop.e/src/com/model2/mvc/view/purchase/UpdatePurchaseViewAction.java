@@ -16,36 +16,14 @@ public class UpdatePurchaseViewAction extends Action {
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		request.getAttribute("vo");		//???????????
+
 		System.out.println(" ::. UpdatePurchaseViewAction 시작 :: ");
 		
 		Purchase purchase = new Purchase();
-		request.getAttribute("purchase");
-		
+
 		int tranNo=Integer.parseInt(request.getParameter("tranNo"));
 		System.out.println("tranNo 받아와라" + tranNo);
-		
 
-	
-	//	int prod_No = Integer.parseInt(request.getParameter("prodNo"));
-//		String buyerId = request.getParameter("buyerId");
-		
-	//	Product prodNo = new ProductServiceImpl().getProduct(prod_No);
-//		User userId = new UserServiceImpl().getUser(buyerId);
-	//	System.out.println("UpdatePurchaseViewAction :: prodNo : " + prodNo);
-	//	System.out.println("UpdatePurchaseViewAction :: userId : " + userId);
-		
-//		purchase.setTranNo(tranNo);
-//		purchase.setPurchaseProd(prodNo);		
-//		purchase.setBuyer(userId);
-//		purchase.setPaymentOption(request.getParameter("paymentOption"));
-//		purchase.setReceiverName(request.getParameter("receiverName"));
-//		purchase.setReceiverPhone(request.getParameter("receiverPhone"));
-//		purchase.setDlvyAddr(request.getParameter("dlvyAddr"));
-//		purchase.setDlvyRequest(request.getParameter("dlvyRequest"));
-//		purchase.setDlvyDate(request.getParameter("dlbyDate"));
-//		purchase.setOrderDate(Date.valueOf(request.getParameter("orderDate")));
-				
 		PurchaseService service = new PurchaseServiceImpl();
 		purchase = service.getPurchase(tranNo);
 		
