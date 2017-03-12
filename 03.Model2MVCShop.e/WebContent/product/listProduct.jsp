@@ -3,21 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <%@ page import="java.util.*"  %>
-<%@ page import="com.model2.mvc.service.domain.Product" %>
-<%@ page import="com.model2.mvc.common.*" %>
-<%@page import="com.model2.mvc.common.util.CommonUtil"%>
-
-<%
-	List<Product> list= (List<Product>)request.getAttribute("list");
-	Page resultPage=(Page)request.getAttribute("resultPage");
-	
-	Search search = (Search)request.getAttribute("searchVO");
-	//==> null 을 ""(nullString)으로 변경
-	String searchCondition = CommonUtil.null2str(search.getSearchCondition());
-	String searchKeyword = CommonUtil.null2str(search.getSearchKeyword());
-%> --%>
-
 <html>
 <head>
 <title>상품 목록조회</title>
@@ -158,8 +143,11 @@
 			<td></td>
 			<td align="left">${product.manuDate}</td>			
 			<td></td>
-			<td align="left">${product.proTranCode }</td>
-			<td></td>
+			<td align="left">${(product.proTranCode=="0") ? "재고없음" : "판매중"}</td>
+			<%-- ${(purchase.paymentOption=="1")?"신용구매":"현금구매"}	 --%>			
+				<%-- <a href="updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a> --%>
+			
+			<td></td>			
 			</td>		
 		</tr>
 		<tr>
