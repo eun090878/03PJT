@@ -44,7 +44,7 @@ public class PurchaseDao {
 		stmt.setString(5, purchaseVO.getReceiverPhone());
 		stmt.setString(6, purchaseVO.getDlvyAddr());
 		stmt.setString(7, purchaseVO.getDlvyRequest());
-		stmt.setString(8, purchaseVO.getTranCode());
+		stmt.setString(8, "1");
 		stmt.setString(9, purchaseVO.getDlvyDate());
 		
 		stmt.executeUpdate();
@@ -137,7 +137,7 @@ public class PurchaseDao {
 			vo.setBuyer(user);
 			vo.setReceiverName(rs.getString("receiver_name"));
 			vo.setReceiverPhone(rs.getString("receiver_phone"));
-			vo.setTranCode(rs.getString("tran_status_code"));
+			vo.setTranCode(rs.getString("tran_status_code").trim());
 			//정보수정 추가
 
 			list.add(vo);
@@ -201,6 +201,15 @@ Map<String, Object> map = new HashMap<String, Object>();
 	
 	//구매상태코드 수정
 	public void updateTranCode(Purchase purchaseVO) throws Exception {
+		
+		System.out.println("PurchaseDao :: updateTranCode() 시작 ");
+		
+		Connection con = DBUtil.getConnection();
+		int tranNo = purchaseVO.getTranNo();
+		System.out.println("PurchaseDao : tranNo :: " + tranNo);
+		String sql ="UPDATE transaction SET tran_status_code='2' WHERE tran_no='"+tranNo+"'";
+		
+		System.out.println("PurchaseDao :: updateTranCode() 끝 ");
 		
 	}
 	
