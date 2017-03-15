@@ -85,7 +85,7 @@ public class ProductDao {
 		
 		String sql = "SELECT "
 				+ "p.prod_no, p.prod_name, p.prod_detail, p.manufacture_day, p.price, "
-				+ "p.image_file, p.reg_date, NVL(t.tran_status_code, 0) tran_code "
+				+ "p.image_file, p.reg_date, NVL(t.tran_status_code, 0) tran_status_code "
 				+ "FROM product p, transaction t "
 				+ "WHERE p.prod_no = t.prod_no(+)";
 		if (searchVO.getSearchCondition() != null) {
@@ -116,16 +116,20 @@ public class ProductDao {
 	
 		List<Product> list = new ArrayList<Product>();
 		
+//		String proTranCode=rs.getString("tran_status_code").trim();
+		
 		while(rs.next()){
-			Product vo = new Product();
-			vo.setProdNo(rs.getInt("prod_no"));
-			vo.setProdName(rs.getString("prod_name"));
-			vo.setProdDetail(rs.getString("prod_detail"));
-			vo.setManuDate(rs.getString("manufacture_day"));
-			vo.setPrice(rs.getInt("price"));
-			vo.setFileName(rs.getString("image_file"));
-			vo.setRegDate(rs.getDate("reg_date"));
-			list.add(vo);
+			Product product = new Product();
+			product.setProdNo(rs.getInt("prod_no"));
+			product.setProdName(rs.getString("prod_name"));
+			product.setProdDetail(rs.getString("prod_detail"));
+			product.setManuDate(rs.getString("manufacture_day"));
+			product.setPrice(rs.getInt("price"));
+			product.setFileName(rs.getString("image_file"));
+			product.setRegDate(rs.getDate("reg_date"));
+			product.setProTranCode(rs.getString("tran_status_code").trim());	
+			
+			list.add(product);
 
 		}
 		

@@ -137,15 +137,54 @@
 			<td></td>
 			<td align="left">
 				<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a></td> --%>
-				<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td>
+				<c:if test="${product.proTranCode=='0'}">
+					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">	${product.prodName}</a></td>
+				</c:if>
+				<c:if test="${product.proTranCode!='0'}">
+					${product.prodName}</td>
+				</c:if>
+				
+	<%-- 			${product.prodName}</td> --%>
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
 			<td align="left">${product.manuDate}</td>			
 			<td></td>
-			<td align="left">${(product.proTranCode=="0") ? "재고없음" : "판매중"}</td>
-			<%-- ${(purchase.paymentOption=="1")?"신용구매":"현금구매"}	 --%>			
-				<%-- <a href="updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a> --%>
+			<td align="left">
+				<c:if test="${param.menu=='search'}">
+					<c:choose>
+						<c:when test="${product.proTranCode=='0'}">
+							판매중
+							<br/>
+							</c:when>
+							<c:otherwise>
+								재고없음
+								<br/>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				
+						<c:if test="${param.menu=='manage'}">
+							<c:choose>
+								<c:when test="${product.proTranCode=='0' }">
+									판매중
+									<br/>
+								</c:when>
+								<c:when test="${product.proTranCode=='1' }">
+									구매완료
+									<a href="/updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a>
+								</c:when>
+								<c:when test="${product.proTranCode=='2' }">
+									배송중
+									<br/>
+									</c:when>
+									<c:when test="${product.proTranCode=='3' }">
+										배송완료
+										<br/>
+									</c:when>
+							</c:choose>
+						</c:if>
+				</td>
 			
 			<td></td>			
 			</td>		

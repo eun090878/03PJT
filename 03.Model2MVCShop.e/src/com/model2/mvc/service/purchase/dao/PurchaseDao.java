@@ -92,6 +92,9 @@ public class PurchaseDao {
 			purchase.setDlvyRequest(rs.getString("dlvy_request"));
 			purchase.setDlvyDate(rs.getString("dlvy_date"));
 			purchase.setOrderDate(rs.getDate("order_date"));
+			purchase.setTranCode(rs.getString("tran_status_code").trim());
+			
+			
 		
 		}
 		System.out.println("findPurchase () : purchase 정보:: " + purchase);
@@ -159,7 +162,7 @@ public class PurchaseDao {
 	
 	//판매목록
 	public Map<String, Object> getSaleList(Search searchVO) throws Exception {
-Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		return map;
 	}
@@ -199,15 +202,75 @@ Map<String, Object> map = new HashMap<String, Object>();
 		System.out.println("PurchaseDao :: updatePurchase() 시작 ");
 	}
 	
+	public Purchase getPurchase2(int prodNo) throws Exception {
+		
+		System.out.println("PurchaseDao :: getPurchase2() 시작 ");
+		
+		 Connection con = DBUtil.getConnection();
+		 
+		 String sql = "SELECT * FROM transaction WHERE prod_no=?";
+		 
+		 PreparedStatement stmt = con.prepareStatement(sql);
+		 stmt.setInt(1, prodNo);
+		 
+		 ResultSet rs = stmt.executeQuery();
+		 
+		 Purchase purchase = null;
+		 
+		 while(rs.next()) {
+			 purchase = new Purchase();
+			 
+			 String userId=rs.getString("buyer_id");
+			 UserService service = new UserServiceImpl();
+			 User user = service.getUser(userId);
+			 
+			 ProductService pservice = new ProductServiceImpl();
+			 Product product = pservice.getProduct(prodNo);
+			 
+			 purchase.setBuyer(user);
+			 purchase.setDlvyAddr(rs.getString("dlvy_addr"));
+			 purchase.setDlvyDate(rs.getString("dlvy_date"));
+			 purchase.setDlvyRequest(rs.getString("dlvy_request"));
+			 purchase.setOrderDate(rs.getDate("order_date"));
+			 purchase.setPaymentOption(rs.getString("payment_option").trim());
+			 purchase.setPurchaseProd(product);
+			 purchase.setReceiverName(rs.getString("receiver_name"));
+			 purchase.setReceiverPhone(rs.getString("receiver_phone"));
+			 purchase.setTranCode(rs.getString("tran_status_code"));
+			 purchase.setTranNo(rs.getInt("tran_no"));
+		 }
+		
+		 System.out.println("purchaseDao : getPurchase2() :: purchase " + purchase);
+	
+		 rs.close();
+		 stmt.close();
+		 con.close();
+		 System.out.println("purchaseDao :: getPurchase2() 끝");
+		 return purchase;	
+	}
+	
+	
+	
 	//구매상태코드 수정
-	public void updateTranCode(Purchase purchaseVO) throws Exception {
+	public void updateTranCode(Purchase purchase) throws Exception {
 		
 		System.out.println("PurchaseDao :: updateTranCode() 시작 ");
 		
 		Connection con = DBUtil.getConnection();
-		int tranNo = purchaseVO.getTranNo();
-		System.out.println("PurchaseDao : tranNo :: " + tranNo);
-		String sql ="UPDATE transaction SET tran_status_code='2' WHERE tran_no='"+tranNo+"'";
+//		int tranNo = purchaseVO.getTranNo();
+//		System.out.println("PurchaseDao : tranNo :: " + tranNo);
+		String sql ="UPDATE transaction SET tran_status_code=3 WHERE tran_no=?";
+		System.out.println("updateTranCode :: getTranCode() ::" + purchase.getTranCode());
+		if(purchase.getTranCode().equals( "1")) {
+			sql="UPDATE transaction SET tran_status_code=2 WHERE tran_no=?";					
+		}
+		
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, purchase.getTranNo());
+		stmt.executeUpdate();
+		
+		stmt.close();
+		con.close();
 		
 		System.out.println("PurchaseDao :: updateTranCode() 끝 ");
 		

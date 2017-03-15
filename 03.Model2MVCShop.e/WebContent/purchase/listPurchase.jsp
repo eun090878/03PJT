@@ -22,7 +22,7 @@ function fncGetAllList(currentPage){
 
 <div style="width: 98%; margin-left: 10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/listPurchase.do?userId=${purchase.buyer.userId}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -82,8 +82,13 @@ function fncGetAllList(currentPage){
 							</c:choose>
 						</td>
 						<td></td>
+						<td align="left">
+							<c:if test="${purchase.tranCode=='2' }"	>
+								<a href="/updateTranCode.do?tranNo=${purchase.tranNo}&tranCode=${purchase.tranCode}">¹°°ÇµµÂø</a><br/>
+							</c:if>
 						</td>
 					</tr>
+					
 					<tr>
 						<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 					</tr>
