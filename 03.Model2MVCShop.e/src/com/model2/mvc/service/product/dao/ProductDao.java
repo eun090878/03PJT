@@ -120,7 +120,7 @@ public class ProductDao {
 //		String proTranCode=rs.getString("tran_status_code").trim();
 		
 		while(rs.next()){
-<<<<<<< HEAD
+
 			Product vo = new Product();
 			vo.setProdNo(rs.getInt("prod_no"));
 			vo.setProdName(rs.getString("prod_name"));
@@ -131,7 +131,7 @@ public class ProductDao {
 			vo.setRegDate(rs.getDate("reg_date"));
 			vo.setProTranCode(rs.getString("tran_status_code"));;
 			list.add(vo);
-=======
+
 			Product product = new Product();
 			product.setProdNo(rs.getInt("prod_no"));
 			product.setProdName(rs.getString("prod_name"));
@@ -143,7 +143,6 @@ public class ProductDao {
 			product.setProTranCode(rs.getString("tran_status_code").trim());	
 			
 			list.add(product);
->>>>>>> refs/heads/new/test
 
 		}
 		

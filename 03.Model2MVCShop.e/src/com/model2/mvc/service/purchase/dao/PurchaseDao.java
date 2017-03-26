@@ -278,15 +278,7 @@ public class PurchaseDao {
 		
 		stmt.close();
 		con.close();
-		
-		PreparedStatement stmt = con.prepareStatement(sql);
-		
-		
-		
-		stmt.executeUpdate();
-		
-		stmt.close();
-		con.close();
+
 		
 		System.out.println("PurchaseDao :: updateTranCode() ³¡ ");
 		

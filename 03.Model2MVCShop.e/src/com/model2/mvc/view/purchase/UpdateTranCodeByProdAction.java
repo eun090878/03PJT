@@ -14,7 +14,6 @@ public class UpdateTranCodeByProdAction extends  Action{
 	  @Override
 	   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-<<<<<<< HEAD
 	      System.out.println("UpdateTranCodeByProdAction 시작 !");
 	      Purchase purchase = new Purchase();
 	      int prodNo = Integer.parseInt(request.getParameter("prodNo"));      
@@ -27,21 +26,6 @@ public class UpdateTranCodeByProdAction extends  Action{
 	      
 	      return "forward:/listProduct.do?menu=manager";
 	   }
-=======
-		System.out.println("UpdateTranCodeByProdAction 시작 !");
-		System.out.println("시작시작 :: " + request.getParameter("tranCode"));
-		Search search = new Search();
-		int prodNo = Integer.parseInt(request.getParameter("prodNo"));		
-				
-		PurchaseService service = new PurchaseServiceImpl();
-		Purchase purchase = service.getPurchase2(prodNo);
-		service.updateTranCode(purchase);
-		
-		System.out.println("UpdateTranCodeByProdAction 끝 !");
-		
-		return  "forward:/listProduct.do?menu=manage";
-	}
->>>>>>> refs/heads/new/test
 	
 
 }

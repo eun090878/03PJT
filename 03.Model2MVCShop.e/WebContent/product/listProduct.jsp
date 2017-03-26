@@ -142,19 +142,19 @@
 			<td align="left">
 				<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a></td> --%>
 				<c:if test="${product.proTranCode=='0'}">
-<<<<<<< HEAD
-					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}"></c:if>
+					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">
+				</c:if>
 				${product.prodName}</a></td>							
 				<%-- <a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td> --%>
-=======
+<%-- 			<c:if test="${product.proTranCode=='0'}">
 					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">	${product.prodName}</a></td>
-				</c:if>
+				</c:if> --%>
 				<c:if test="${product.proTranCode!='0'}">
 					${product.prodName}</td>
 				</c:if>
 				
 	<%-- 			${product.prodName}</td> --%>
->>>>>>> refs/heads/new/test
+
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
