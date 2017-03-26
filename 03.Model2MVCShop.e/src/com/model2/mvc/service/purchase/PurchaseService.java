@@ -12,6 +12,10 @@ public interface PurchaseService {
 	
 	public Purchase getPurchase(int tranNo) throws Exception;
 	
+<<<<<<< HEAD
+	//tranCode º¯°æ½Ã
+=======
+>>>>>>> refs/heads/new/test
 	public Purchase getPurchase2(int ProdNo) throws Exception;
 
 	public Map<String,Object> getPurchaseList(Search searchVO,String buyerId) throws Exception;

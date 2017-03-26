@@ -9,6 +9,27 @@ import com.model2.mvc.service.purchase.PurchaseService;
 import com.model2.mvc.service.purchase.impl.PurchaseServiceImpl;
 
 public class UpdateTranCodeAction extends Action {
+<<<<<<< HEAD
+	
+	@Override
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//HttpSession session = request.getSession();
+		Purchase purchase = new Purchase();
+		int tranNo = Integer.parseInt(request.getParameter("tranNo"));
+		
+		
+		//boolean loginGrade = ((User)session.getAttribute("user")).getRole().equals("admin");
+		//if(loginGrade){
+	//		purchase.setTranCode("1");
+		//}
+//		purchase.setTranNo(tranNo);
+		
+		PurchaseService Service = new PurchaseServiceImpl();
+		Service.updateTranCode(purchase);
+		
+		return "redirect:/listPurchase.do";
+	}
+=======
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,4 +45,5 @@ public class UpdateTranCodeAction extends Action {
 	
 	
 
+>>>>>>> refs/heads/new/test
 }

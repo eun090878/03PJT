@@ -20,9 +20,9 @@ public class GetProductAction extends  Action {
 		int productNo = Integer.parseInt(request.getParameter("prodNo"));
 		
 		ProductService service = new ProductServiceImpl();
-		Product vo = service.getProduct(productNo);
-		System.out.println("여기는 GETPRODUCTACTION :: " + vo.getRegDate());
-		request.setAttribute("product", vo);
+		Product product = service.getProduct(productNo);
+//		System.out.println("여기는 GETPRODUCTACTION :: " + vo.getRegDate());
+		request.setAttribute("product", product);
 		
 		System.out.println(" ::. GetProductAction 끝 :: \n");
 		

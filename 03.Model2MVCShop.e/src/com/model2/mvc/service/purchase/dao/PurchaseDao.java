@@ -108,6 +108,13 @@ public class PurchaseDao {
 		return purchase;
 	}
 	
+	public Purchase findPurchase2(int prodNo) throws Exception {
+		
+		Purchase purchase = new Purchase();
+		
+		return purchase;
+	}
+	
 	//구매목록
 	public Map<String, Object> getPurchaseList(Search searchVO, String buyerId)throws Exception {
 		
@@ -199,7 +206,7 @@ public class PurchaseDao {
 		stmt.close();
 		con.close();
 		
-		System.out.println("PurchaseDao :: updatePurchase() 시작 ");
+		System.out.println("PurchaseDao :: updatePurchase() 끝 ");
 	}
 	
 	public Purchase getPurchase2(int prodNo) throws Exception {
@@ -267,6 +274,15 @@ public class PurchaseDao {
 		
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setInt(1, purchase.getTranNo());
+		stmt.executeUpdate();
+		
+		stmt.close();
+		con.close();
+		
+		PreparedStatement stmt = con.prepareStatement(sql);
+		
+		
+		
 		stmt.executeUpdate();
 		
 		stmt.close();

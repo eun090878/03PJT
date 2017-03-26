@@ -92,6 +92,8 @@
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
 		<td class="ct_line02"></td>
+		<td class="ct_list_b" width="100">상품이미지</td>
+		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">상품명</td>
 		<td class="ct_line02"></td>
 		<td class="ct_list_b" width="150">가격</td>
@@ -135,9 +137,16 @@
 		<tr class="ct_list_pop">
 			<td align="center">${ i }</td>
 			<td></td>
+			<td align="left"><img src = "/images/uploadFiles/${product.fileName}" width="100" height="100"/></td>
+			<td></td>
 			<td align="left">
 				<%-- <a href="/getUser.do?userId=${user.userId}">${user.userId}</a></td> --%>
 				<c:if test="${product.proTranCode=='0'}">
+<<<<<<< HEAD
+					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}"></c:if>
+				${product.prodName}</a></td>							
+				<%-- <a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td> --%>
+=======
 					<a href=" /getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">	${product.prodName}</a></td>
 				</c:if>
 				<c:if test="${product.proTranCode!='0'}">
@@ -145,11 +154,25 @@
 				</c:if>
 				
 	<%-- 			${product.prodName}</td> --%>
+>>>>>>> refs/heads/new/test
 			<td></td>
 			<td align="left">${product.price}</td>
 			<td></td>
 			<td align="left">${product.manuDate}</td>			
 			<td></td>
+<<<<<<< HEAD
+			<td align="left">${(product.proTranCode=="0") ? "판매중" : "재고없음"}</td>
+			<%-- ${(purchase.paymentOption=="1")?"신용구매":"현금구매"}	 --%>			
+				<%-- <a href="updateTranCodeByProd.do?prodNo=${product.prodNo}&tranCode=${product.proTranCode}">배송하기</a> --%>
+			<c:if test="${param.menu == 'search'}">
+			
+			
+			</c:if>
+			
+			<c:if test="${param.menu == 'manage'}">
+				${product.proTranCode=='1'}
+			</c:if>
+=======
 			<td align="left">
 				<c:if test="${param.menu=='search'}">
 					<c:choose>
@@ -185,6 +208,7 @@
 							</c:choose>
 						</c:if>
 				</td>
+>>>>>>> refs/heads/new/test
 			
 			<td></td>			
 			</td>		

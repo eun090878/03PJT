@@ -43,7 +43,6 @@ public class AddPurchaseAction extends Action {
 		String dlvyRequest = request.getParameter("receiverRequest");
 		String dlvyDate = request.getParameter("receiverDate");
 
-		
 		purchase.setPurchaseProd(product);
 		purchase.setBuyer(user);
 		purchase.setPaymentOption(paymentOption);

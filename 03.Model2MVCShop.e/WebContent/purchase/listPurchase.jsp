@@ -76,9 +76,9 @@ function fncGetAllList(currentPage){
 						<td></td>
 						<td align="left">
 							<c:choose>
-								<c:when test="${purchase.tranCode=='1'}">현재 구매완료 상태입니다.</c:when>
-								<c:when test="${purchase.tranCode=='2'}">현재 배송중 상태입니다.</c:when>
-								<c:when test="${purchase.tranCode=='3'}">현재 배송완료 상태입니다.</c:when>
+								<c:when test="${purchase.tranCode.trim()=='1'}">현재 구매완료 상태입니다.</c:when>
+								<c:when test="${purchase.tranCode.trim()=='2'}">현재 배송중 상태입니다.</c:when>
+								<c:when test="${purchase.tranCode.trim()=='3'}">현재 배송완료 상태입니다.</c:when>
 							</c:choose>
 						</td>
 						<td></td>

@@ -29,14 +29,7 @@ public class UpdateProductAction extends Action {
 		productVO.setPrice(Integer.parseInt(request.getParameter("price")));
 		productVO.setFileName(request.getParameter("fileName"));
 //	System.out.println("¿©±â´Â UPDATEPRODUCTACTION ::"+productVO.getRegDate());
-		
-/*		System.out.println("prodNo ::::"+prodNo);
-		System.out.println("ProductName:::"+request.getParameter("prodName"));
-		System.out.println("ProductDetail:::" + request.getParameter("prodDetail"));
-		System.out.println("Manufacture Date ::::" + request.getParameter("manuDate"));
-		System.out.println("price:::::::" +Integer.parseInt(request.getParameter("price")));
-		System.out.println("fileName :::::" + request.getParameter("fileName"));*/
-				
+						
 		ProductService service = new ProductServiceImpl();
 		service.updateProduct(productVO);
 		productVO = service.getProduct(prodNo);

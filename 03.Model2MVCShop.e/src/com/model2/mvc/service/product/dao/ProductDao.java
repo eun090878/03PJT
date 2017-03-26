@@ -65,6 +65,7 @@ public class ProductDao {
 			productVO.setProdDetail(rs.getString("prod_detail"));
 			productVO.setManuDate(rs.getString("manufacture_day"));
 			productVO.setPrice(rs.getInt("price"));
+			productVO.setFileName(rs.getString("image_file"));
 			productVO.setRegDate(rs.getDate("reg_date"));
 			
 		}
@@ -99,7 +100,7 @@ public class ProductDao {
 		}
 		sql += " GROUP BY p.prod_name, p.prod_no, p.prod_detail, "
 				+ "p.manufacture_day, p.price, p.image_file, p.reg_date, "
-				+ "t.tran_status_code ORDER BY prod_no";
+				+ "tran_status_code ORDER BY prod_no";
 
 		System.out.println("ProductDAO :: Original SQL :: " + sql);
 		
@@ -119,6 +120,18 @@ public class ProductDao {
 //		String proTranCode=rs.getString("tran_status_code").trim();
 		
 		while(rs.next()){
+<<<<<<< HEAD
+			Product vo = new Product();
+			vo.setProdNo(rs.getInt("prod_no"));
+			vo.setProdName(rs.getString("prod_name"));
+			vo.setProdDetail(rs.getString("prod_detail"));
+			vo.setManuDate(rs.getString("manufacture_day"));
+			vo.setPrice(rs.getInt("price"));
+			vo.setFileName(rs.getString("image_file"));
+			vo.setRegDate(rs.getDate("reg_date"));
+			vo.setProTranCode(rs.getString("tran_status_code"));;
+			list.add(vo);
+=======
 			Product product = new Product();
 			product.setProdNo(rs.getInt("prod_no"));
 			product.setProdName(rs.getString("prod_name"));
@@ -130,6 +143,7 @@ public class ProductDao {
 			product.setProTranCode(rs.getString("tran_status_code").trim());	
 			
 			list.add(product);
+>>>>>>> refs/heads/new/test
 
 		}
 		
